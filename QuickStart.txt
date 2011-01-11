@@ -1,0 +1,28 @@
+WinAsm quick start guide
+----------------------------
+
+This IDE is for programmers using the Assembly Language.
+I would be very greatful if you could send me any bugs you find
+so that this IDE become better. Please be strict!
+
+Also, please, send any suggestions you may have.
+
+Quick Start:
+------------
+1.Set all Paths and Files from Tools-Options-Files & Paths.
+
+2.To start a new project select "New Project", and from the dialog
+choose the appropriate Project Type. (You can also edit "Make Options",
+but usually this is not necessary).
+
+A new project is created with one file (untitled.asm). You can add
+(new or existing) or remove files from the "Project" menu.
+
+
+3.From "Make" menu choose "Go All" to build your project. If your project is
+executable it will be launched if no errors found during the make process.
+
+-You can find the latest version of WinAsm at http://winasm.how.to
+
+
+Antonis Kyprianou (akyprianou@cytanet.com.cy)
