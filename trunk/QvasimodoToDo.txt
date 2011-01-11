@@ -1,0 +1,154 @@
+QvasimodoToDo
+-------------
+
+push offset --->List shows constants TOO
+
+----------------------------------------------------------
+Sugg: How about a filename mask named "all supported types" when adding resources to our project? For example: "*.bmp;*.cur;*.ico;*.avi;*.xml;*.wav".
+
+Sugg: How about a context menu at the CodeHi control in the "Definitions" dialog?
+
+------------------------------------------------------------------------------------
+Bugs:
+There seems to be a noticeable delay when saving WinAsm settings (about 5 seconds). Is this normal? :?
+
+-----------------------------------------------------------------------------------
+1) I've been thinking it would be useful to have a "Show Output on Build" option. For long builds (like a project with several modules) you can watch how it's going.
+
+4) This is a hard one: there's something I loved about .NET when I tried it. It uses spaces (so the source looks good on any editor), but it *behaves* as if they were tabs (so it's easier to edit). I don't really know how this is implemented, but sounds like a really good idea, and no other IDEs I know of have this feature yet. 
+
+5) Another old suggestion: when WinAsm finds you're invoking an unknown procedure, intellisense won't work. This is IMHO bad because sometimes the procedure really exists, but WA doesn't find it because it's in a static library.
+		For example, when I use procedures defined only in a static library, it would be nice to have intellisense pop up, at least to show me the local variables. Currently, if you type this line:
+		CODE  
+		invoke ThisProcDoesnExistInTheProject,[B]|[/B] 
+		intellisense should pop up showing the local variables, but it doesn't
+
+
+6) A possible fix to the problem above: instead of parsing intellisense data just from the procedure definitions, the prototypes could be used as well. What do you think? 
+
+7) A small glitch, try the following to see it: collapse all procedures in your source, write a line with an error somewhere in the middle, and try to build the program. The build will fail and the line with the error will be marked. The problem is that some procedures will be forcefully expanded by WinAsm, but in the selection bar they still appear as collapsed.
+
+
+
+Another wish: it would be nice if, when working on a project with multiple modules, the "Assemble" button would only assemble the current module (instead of all of them). If the active MDI child is not a module, assemble then all
+
+2. Create a new "inc" file and rename it as "asm". The file is still identified as an include file. (Alright, I confess, I did it on purpose!  )
+
+
+Bugs:
+
+
+
+6. When pasting any code that should have a collapsible block, the block's button in the line number bar is not shown. Forcing WinAsm to redraw doesn't solve the problem, but hitting Enter to add a line before the "missing" block does.
+
+7. Running WinAsm through MemProof reveals 90 heap memory leaks (~200Kb), 35 user32 leaks, and 17 errors (16 faulty HeapFree calls, and 1 failed DestroyObject). It's not so bad since there are no GDI leaks, but I thought you might want to know. I'm attaching the MemProof report.
+
+8. When build errors are shown in the source files, blocks are expanded but their buttons do not reflect that change.
+
+
+Wish list:
+
+1.Unions could be collapsible (just like structs).
+
+2.Info tooltip when writing a struct definition in the data section. 
+
+3.There is little point in having an autocomplete box with local variable names when typing the "OFFSET" keyword... funny how we never noticed! 
+
+4.An optimization to the addins manager, when retrieving the addins names and descriptions: load ALL the addins first, then get the strings, then unload them all. This speeds up the loading of the libraries since most of them will have many common dependencies.
+
+5.Addins have access only to the GUI, to the internals of WinAsm. For this reason addins coders quickly find a limit... there are some things you just cannot do. For example, after one of your replies where you suggested to make addins that replace existing dialog boxes (rather than subclassing them), I thought of making an addin to replace some WinAsm dialog boxes with wizards (to make the interface more intuitive for new users), and realized that it just couldn't be made... 
+
+So, in my ideal world  WinAsm should provide a way for addins to do this:
+
+a) Full access to the project: not just getting the project info, but changing it. It is currently possible to manipulate existing project files, but not to add or remove them. It would also be great to be able to save a file (without having to bring it's MDI child window to the front and sending a WM_COMMAND message).
+
+b) Full access to the resource editor: at least the ability to add resources to an existing script, without having to "manually" parse the file, would be great. It is currently impossible since files opened by WinAsm cannot be edited externally. Of course this should only work when visual mode can be enabled (in other words, when the script is 100% compatible with WinAsm).
+
+c) Access to other addins: a way to enumerate currently loaded addins. Also a way to load and unload them could be useful (including the possibility of an addin that unloads itself). I can think of an application for this right now: an addin that, when the output filename corresponds to a currently loaded addin (other than iself, of course), automatically unloads and loads it when you make a build.
+
+d) The ability to reload VAA and keyword files on runtime. This would be great, for example, for PhoBos to make his VAA editor as an addin (changes would be reflected immediately). Also one could make an addin to support other assembler flavors.
+
+e) Easy ways to send text to the output window, add tabs to the project window
+
+I know it's asking a lot, I'm just posting this here to give you something to think about... 
+
+
+-When an up-down control has the UDS_AUTOBUDDY style, it's buddy control is the previous oneas defined in the dialog, not the *first* one. 
+
+Bugs:
+5. Using a mouse wheel when the autocomplete popup is visible causes the text to scroll, but the popup remains there (should be hidden). Same thing happens with the "invoke" tooltip. Please note that I haev a "Genius" mouse, with a special software to enforce mousewheel support.
+
+10. The "invoke" autocomplete doesn't work when the function name is unknown.
+
+15. When changing the code editor font, you can't change it's style (normal, bold, italic, etc.). This is bad, because some fonts only have one of this styles (for example, only bold), and once you've selected one of those fonts that style is kept until WinAsm is restarted.
+
+16. If a compiling error occurs on a line that has a "proc" statement, that procedure can't be collapsed again until a successful build is made.
+
+
+Suggestions:
+
+1. It would be great to have a "safe" subclassing method for all WinAsm windows, to avoid conflicts with multiple addins trying to subclass the same window. Maybe something like CodeHi's CHM_SUBCLASS, but with some way to remove the subclassing to avoid a GPF when the addin unloads. An idea (I hope you like it  ):
+
+
+code:--------------------------------------------------------------------------------WAM_CAPTURE:
+	wParam: Window handle to capture (subclass).
+	lParam: Pointer to window procedure that will receive messages.
+Returns TRUE if successful or FALSE on error.
+WinAsm keeps a linked lists of subclassed windows and all the WndProc pointers.
+
+WAM_RELEASE:
+	wParam: Window handle to be released.
+	lParam: Pointer to window procedure (as passed to WAM_CAPTURE).
+Returns TRUE if successful or FALSE on error.
+
+WAM_NEXTWNDPROC:
+	wParam: Handle of window subclassed with WAM_CAPTURE.
+	lParam: Pointer to window procedure (as passed to WAM_CAPTURE).
+Returns pointer to next window procedure in chain, or NULL on error.
+Use CallWindowProc to call this window procedure.--------------------------------------------------------------------------------
+
+
+2. An easier (but less general) way to accomplish suggestion #1 is to simply add more addin functions for other WinAsm dialog boxes and windows, like the "new project" dialog, the "browse for folder" dialog, the project properties window, etc.
+
+3. How about an "open collapsed" option? 
+
+4. Another option: "visual mode on by default". Would be useful when double clicking on RC files (I prefer to use visual mode only for RC files created by WinAsm).
+
+5. It could be useful to have a way to decide which resources are discardable and which ones aren't. Then again, the "DISCARDABLE" switch isn't all that useful anyway (I've never noticed the difference?) 
+
+-Autocomplete pops up with local variable names, which is really useful.  Could it be possible to do the same with the function's parameters?
+
+-Resources other than dialogs, accelerator and string tables must reside in external files to be supported. It would be useful to have WinAsm optionally save them to files rather than just stripping them when found.
+
+-With the resource editor, create a new control. Change it's ID value, but NOT it's ID name (the default one). Now add another control of the same type, and delete it. Now save the resource file. Take a look at the #define statements, you'll see that when two or more controls have the same ID name, only the ID value of the last one is saved.
+
+-I could not find a way to manually edit the IDs in a resource script. This could be useful for deleting unused IDs, or when the same ID is used in several dialog boxes and you want to change it's value. (It's a feature suggestion, not a bug  ).
+
+-The "styles" dialog box can be confusing... This is because some equates actually have the same values or are combinations of others. For example, CBS_DROPDOWNLIST = CBS_DROPDOWN + CBS_SIMPLE, and WS_TABSTOP = WS_MAXIMIZEBOX. A quick fix: when the user double clicks on a listview item, change the bitmask and update all the items (not just the one the user clicked on).
+
+
+Qvasimodo
+---------
+Bugs:
+
+4. What ever happened to "Manifest file (*.xml)" in the files filter when hitting Ctrl+D? 
+
+9. DS_SETFONT is set or cleared internally by the resource builder. Using it in the script has no effect.
+
+10. Add a new file as "Other" type. Save as a known type (inc, asm, def, rc...). The file should then be moved to it's corresponding category in the project tree, but it isn't. The project may not build correctly because of this (for example, adding the .def file like this causes WinAsm to ignore it and build the dll without any exports). This problem is fixed by itself when closing and reopening the project.
+
+12. Autocomplete for structures is not working unless the structure name is the first operand. It doesn't work for INVOKE parameters but the first, except when ADDR is used.
+
+
+Suggestions:
+
+3. How about supporting radio menu items in the menu editor? 
+
+6. The menu popup items could have IDs too. That way, addin coders can insert new popups without breaking compatibility (because of position changes).
+
+7. IMHO structures should not have a vertical divider line. It looks really bad when nesting them.
+
+8. Three requests in one: when creating a new project based on a template, it would be great if:
+- The "select folder" dialog has a "new folder" button.
+- It started with "My Documents" selected, since that's where one usually saves projects.
+- There was a way to enter the new project's name (having the template's name as default). Then the files could be renamed to match the new project's name.

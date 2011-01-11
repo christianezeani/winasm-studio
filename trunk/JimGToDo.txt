@@ -1,0 +1,16 @@
+JimG
+----
+Is there any kind of return from the following requests, like pass/fail, handle, etc?
+
+CODE  
+
+;Adds an existing file to the project, or opens an external file
+;lParam: TRUE to Add File to the current project, FALSE to Open File external to the current project
+WAM_ADDOPENEXISTINGFILE  EQU WM_USER+103;hWnd   = hMain
+                                          ;wParam = lpFileName
+                                          ;lParam = TRUE/FALSE  
+
+;Opens an entire project
+WAM_OPENPROJECT    EQU WM_USER+104;hWnd   = hMain
+                                          ;wParam = lpProjectFileName
+                                          ;lParam = reserved

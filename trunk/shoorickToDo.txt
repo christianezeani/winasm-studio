@@ -1,0 +1,232 @@
+(shoorick)
+----------
+5120b, out window closed.
+when i walk through project manager clicking files i see out window border splashing for a very short moment. both on xp and 2k, cel1100 and cel800. really, it does not disturb anyway, but looks not perfect 
+
+also, i think, esc may toggle visibility of out window instead of only closing
+----------------------------------------------------------------------------------
+it sounds like from manager  but i think first thing you should do is to try to optimize codehi/winasm:
+it became notificatively slower compare to prev. (503) - i feel this esp. on my c300 (nice profiler).
+also i do not know how messages spreading, but when something finished in background winasm a project
+explorer in foreground winasm blinking as updating... of course, most of all slow responce when
+editing annoys - esp. when key-symbols entered (eg. comma, bracket etc.). also, is it possible to
+increase speed of codehigh with vaa entries count reducing? there are many structures not used
+by me... i know, we have to pay for service, but i think not only me is using such slow pc.
+of course, when you have time  commonly, it is not too bad and still usable to me, 
+ut you know - i'm enough patient in such cases
+ ----------------------------------------------------------------------------------
+----------------------------------------------------------------------------------
+is it too difficultto switch syntaxis highlighting in the bat to asm-like? it would be better
+to do manually to simplify this at all: in real too lot of such sources exists, and with this
+it could be possible to use them directly - without any conversions.
+
+AGAIN:
+i've asked you about support asm syntaxis in bat/cmd files: it is because if it is not easy -
+there is the other way: rename bat to asm, add to project and edit it, and when "compile" command
+sent just copy it as bat and run last one, but if you will add such highlighting - this game with
+extensions loosing sence. 
+----------------------------------------------------------------------------------
+
+
+----------------------------------------------------------------------------------
+well, i found some new things, avilable for masm and not - for fasm:
+in masm invoke SomeFunction,... <-intellysence appeared
+in fasm invoke SomeFunction,[... <-intellysence disappeared
+maybe you will treat "[" as blank space?
+
+in fasm include and includefile needs filename to be quoted.
+
+
+--------------------
+about babilon tower  i had no progress a while, because was buzy a little, so, i think, it will be
+discovered soon. it was interesting you wrote before about compilation of same resources under
+different OSes and their behavior. did you find anything more? i have an article - i'll look
+for it now and send it to you about unicode/utf etc. comonly, we has to look into the root.
+when i compile my rc, i see russian letters in the res file in unicode (i use win2k and have no 9x).
+so, i think, if they will be extracted with unicode functions it has to appear proper in the menu.
+well, it was just lunch talking 
+----------------------------------------------------------------------------------
+
+
+codepages again! :D
+there you can see "Hello, blues!" in russian.
+in property box written right, on the ghost dialog - wrong ;)
+
+----------------------------------------------------------------------------------
+Hello, Antonis.
+
+hi!
+i did not annoy you with fasm because you was too busy :)
+
+so, what i feel needed:
+
+
+2.resourses - it is a piece of cake! yes, i knew about this method
+including of resources and was "mentally" ready, but: i read some on
+fasm forum, so, somebody do not like masm package and do not have it,
+and even complained on radasm so it does the same way. also an utility
+present which converts rc into the fasm-compatible syntaxis, but i
+have no it. first way is ready, second way could be realized inside
+addin with two-sides conversion, but there is also third way - add to
+embedded editor switchable support of fasm resources syntaxis: as i
+see, they are similar, just different keywords and prolog/epilog.
+well, it is not even a suggestion, because i do not figure how it is
+hard or easy. that's why i send you this via mail - to not hang on you
+extra obligations ;) so, it is an idea (a while). also, that is why i
+need to catch rc file - i had ready mechanism, but when i had
+implemented it it failed :D so, resources is main trouble, i think.
+
+3.just wants:
+"Compiler" in the project info structure (MASM by default) (string of
+16 bytes will be enough)
+
+WAM_EXECUTECOMPILER (~) - since create pipe and execute is present in
+winasm body - it is not only saving kb, it will simplify far
+developing addins, which will use it: who knows, maybe somebody will
+want run scripts or anything other directly from winasm. in other way,
+i think it is not too sophistic.
+
+when project is not executable, commandline property became unavaible.
+i think, it would be good left it avaible and treat it as commandline
+to run: there can be placed an application, wich uses it (for example,
+test application to use dll). also, in this case debug and run in make
+menu have to be also always avaible. browse button will be good there
+anyway (if it is an executable, commandline can be often just a file,
+so, it is easy to browse for it).
+
+well, enough, i have to leave my work!
+-- 
+Best regards,
+ shoorick
+
+----------------------------------------------------------------------------------
+hi!
+
+about yesterday pm...
+
+i've thought a little - so, agree, no need in new message to slow down frame proc. i've thought another: is it possible to export some functions by main exe, so they can be used by addin dll - as well as "internal API"?
+of course, if there a couple of functions, there is no need in this, but some functions, already present in winasm, are repeated in add-in - it leds to grow and slow... and maybe features can be enlarged? well, anyway all of this is just ideas.
+
+about resource editor: to simplify its work it could be possible to move resource section from fasm asm into eg. resource.inc, wich has to have fasm format, but will be separate file, holded by resource editor, when in visual mode. well... ideas! ideas!
+
+----------------------------------------------------------------------------------
+
+-is it possible to implement multiselection with ctrl or shift in the resource tree also, not only with mouse? it could be usefull for dialogs with tab control, where a great stack of controls present, each for own page, and it is a hard work to pick up a group of controls one by one
+----------------------------------------------------------------------------------
+1.i think, you can already send hello to Privalov&Co 
+2.i placed wafasm on wasm.ru - only one answer i got, but there is no download counting, so, i do not know about it popularity, but i hope, winasm popularity will grow with it 
+3.i'm thinking now about resources: their support in fasm made also with macros. i see there two ways: a) try to include whole res file (fasm allow do includefile <filename>)  try to support fasm format of resources by embedded resource editor of studio - it seems format differents from rc slightly. first solution more simple, if it will be possible, but second preffered because fasm users may have no masm package or other rc compiler.
+
+a questions/sugg:
+1."macro" keyword also placed first in fasm - for the collapsing blocks...
+2.how can i save project silently? (without popping dialog)
+3.i think, it would be good to have 2 debuggers in the options: one for
+win32, another - for dos.
+4.it would be good to not disable commandline for dll's etc., but change label there to "ass. exe", and run it when debug/run called: when you writing dll, you debug it by running caller.
+
+well, chief send me somewhere, to be conti... 
+----------------------------------------------------------------------------------
+
+well, i need also to be able to close file, not just hide window (just remind), or, tell me: can i just change 101 to 1 in the childdata to make it included into the project, if its name already added to wap? (it's about conversion, as you understand: i have opened external asm, making wap including it, then open wap and have this asm open twice: internally and externally, so, errors appears: "file was changed ext.. reload?" - it's not good...) or, may be not bad to have such feature: add file, currently open externally, to project..
+
+a! remember!!!!! GIVE ME OFFSET TO FILENAME OF YOUR OPEN FILE STRUCTURE!!!!! I WANT ALWAYS START FROM CURRENT PROJECT DIR!!!! OR I"LL START HACKING!!!! RRRRRRRRRRRRRR!!!!!  
+
+you can add a new place into features 
+
+----------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+-studio has check for "proc" and "struct" also when they are the first words in the line to support collapsing blocks for fasm syntaxis
+
+-also, last thinking about exporting resource labels: i think, it could be realized even more simple: there is need to have an option like this: "keep synchronized include" - and it's all. so, when it checked a new inc file with same name as rc created or existing rewrited with equs automatically each time you modify identifiers when editing resources. so, you have just to add a line eg. "include rsrc.inc" and forget at all about this question.
+
+-next: about tooltips in resource editor: i think it would be enough to show only symbolic name with them since that strings are already ready.
+
+-last: about createpipeandexecute  i hope i'll have a time to do fasm compilation within couple days. parallel i've thought, since such proc exists inside studio, it would be not bad to call it with smthn like WAM_EXECUTE  (in future versions)
+
+-well-well, by the way, may be it is funny: my chief again returned from two-weeks vacation 
+
+
+1. export resources dialog has to have a couple of buttons: eg "copy
+to clipboard", "insert into current position", "replace all text",
+and, maybe, "create rsrc.inc" for the fast work. may be would be good
+to check, is there inc file in project, wich have, for example, same
+name as rc file, if it is - just replace all text, if not - create
+new: idea is to keep all id-s together separately, to not search for
+them in source, select, delete, then replace... even it would be nice
+to check, if there rc was changed, to propose automatically change
+this include file, and, even more, to be able to check on the option
+so this include file will be changed automatically without prompting.
+compare: when you are using vc, you have no export anything - the prb
+is just because masm, or asm syntaxis does not allow include syntaxis
+of rc files, which is c-like.
+
+2.i'm lazy to give long meaningful names to the buttons, and have no
+memory to hold them in the head :D so, when i want to place id of the
+control and do not remeber it, i switch into resource editor, look the
+id, and then switch back. but i have to switch project explorer to
+resources, which can be done fast enough, and then switch backward to
+the "Project" tab: 2 extra mouse moving and 1 extra mouseclick + n
+extra mouseclicks on the controls. ffuh, very long story ;) could you
+add a tooltip to controls which will show symbolic and numeric id of
+it, for example: "Edit_1:11023". or even super-puper! to the context
+menu for controls place option: "copy ID to the clipboard" (tooltip
+needed anyway, for example, i want just refer...)
+
+3.did you ever think about selecting vertical blocks in CodeHi? It
+would be too nice for aligning text and working in some other
+situations (switching columns, for example, etc.)
+
+
+
+
+
+
+It would be nice to add 2 buttons to the toolbar:
+1."compile rc" and "debug". it is not only just comfortable - comebody thinks that "compile+link" combination is step equivalent to "go all" button, and then asks the questions "what's wrong" (i already got such on wasm )
+2.since you built app fast with single mouseclick it would be nice to run it under debugger with similar single mouseclick.
+the last could be implemented with add-in, of course, using same button to run/debug (switchable), when i'll be free a little...
+
+
+
+
+
+-well, some times i need intellisense to enter constants or something else, but it does not appear, and i understand it's not easy to explain to studio each combination, so, there is a way to call it explicitly with hot key - possible it will call constant list, but if there is a point left from cursor - then list of known structures
+
+1. it would be nice if double click on dlg item will open styles window (and 1a sugg: if shift-dblclk - exstyles window).
+
+-i've a just another sugg.: when some control is selected on a toolbar, if ghost dialog is just clicking (not dragging) - it would be great that new control will appeared there not 0x0 (or 1x1), but of some standard size (prob for each control separatly)
+
+
+-If there were maximizing of children, would be good if deleting the file from the project would not switch them to the floating mode
+
+-Print:at common, he said that winasm not proper wrap long strings, and does
+not calculate proper printed area of sheet and physical size of
+printed text
+
+-while coding it is need to switch often between sections, esp. .data(?) end .code. when these both are in the one file there is not good scrolling, so, i think your parser wich builds list of procedures for the combobox may include there these keywords for fast jumping. also this feature must be optional, because of someone, who writes .data/.code many times. and there must be a back key (at list for the one position) - when you chose a position from combo - jump is taken to the begining of proc instead of place, where you have been and have to continue typing.
+
+a one trouble - when the project has no name for output (like it is in my base dlg project - it was a time ago when i've send it to you) - exe is building with the name of asm file - nothing especial, but if you try to debug it from IDE - first time its starting, but then nor linker, nor debugger refuse to open exe and string in the error message seems like name of file (end of line) corrupted. (I'm using ollydbg.) Adding a name to output remove this trouble, but this can discourage a novice.
+
+
+
+So, situation: run from IDE any dialog-based application so you can see IDE behind it's window, then catch with mouse a project window frame and try to resize it - frame will resize, but tooltip window - no, and mouse became closed inside client area. to release it you have to switch applications, for example.
+ 
+1.commonly you saw my oem/ansi addin - it replaced my bad eng what
+have to do ;) commonly it suits me, but i'm not a real programmer,
+so, if you want to attract non-english console writers your editor
+must do such conversion for oem files invisible when open and save
+- nobody will convert and reconvert their source each time before
+edition and compilation. it would be good, that such project or each
+file in it (better) has a flag "oem" for automatic conversion. well,
+here is now just advise ;) if you do this - it will be not for me ;)
+
+
+
+
