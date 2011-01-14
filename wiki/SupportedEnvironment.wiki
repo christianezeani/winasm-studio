@@ -3,12 +3,13 @@
 
 = Introduction =
 
-List of compatible software: compilers and linkers.
+WinAsm Studio was designed to support MASM32 package as back-end, however it supports other products too.
 
 
-= Details =
+= List of compatible software: compilers and linkers =
 
-  * MASM32 package including Microsoft *MASM* compiler and linker. *Closed source*. Restricted license.
-  * JWASM compiler. MASM-compatible. *Open source*.
-  * FASM compiler and linker (built-in). Supported using add-in. *Open source*.
-  * UniLink linker. *Closed source*.
+
+  * [MASM32] package including Microsoft *MASM* compiler and linker. *Closed source*. Restricted license.
+  * [JWASM] compiler. MASM-compatible. *Open source*.
+  * [FASM] compiler and linker (built-in). Supported using add-in. *Open source*.
+  * [UniLink] linker. *Closed source*.
