@@ -4,9 +4,19 @@
 
 User wishes and improvements are posted here.
 
+= Assemblers support =
+
+== JWASM ==
+
+ * Add switch (radio button) in project properties to compile 64-bit version (-win64 switch)
+ * Option for binary output (-bin switch)
+
+
 = Features suggested =
 
 == User interface ==
+
+=== Warning: RAW list ===
 
 TO DO:
 ------
