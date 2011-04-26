@@ -146,9 +146,9 @@ Local Point		:POINT
 				Invoke GetParent,EAX
 				POP ECX
 				.If EAX==WinAsmHandles.hMain || ECX==WinAsmHandles.hMain
-					Invoke DrawCaption,hWnd,hDC,ADDR Rect,DC_SMALLCAP OR DC_GRADIENT OR  DC_TEXT or DC_ACTIVE
+					Invoke DrawCaption,hWnd,hDC,ADDR Rect, DC_GRADIENT OR  DC_TEXT or DC_ACTIVE
 				.Else
-					Invoke DrawCaption,hWnd,hDC,ADDR Rect,DC_SMALLCAP OR DC_GRADIENT OR  DC_TEXT
+					Invoke DrawCaption,hWnd,hDC,ADDR Rect,DC_GRADIENT OR  DC_TEXT
 				.EndIf
 			.ElseIf EAX==STYLE_TWOLINESTITLE
 				PUSH Rect.bottom
