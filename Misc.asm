@@ -4614,12 +4614,6 @@ ChooseFontHook Proc hWnd:DWORD, uMsg:DWORD, wParam:DWORD, lParam:DWORD
 	.If uMsg==WM_INITDIALOG
 		Invoke CenterWindow, hWnd
 		Invoke SetWindowText,hWnd,Offset szFont
-		Invoke GetDlgItem,hWnd,471h
-		Invoke EnableWindow, EAX, FALSE
-		Invoke GetDlgItem,hWnd,410h
-		Invoke EnableWindow, EAX, FALSE
-		Invoke GetDlgItem,hWnd,411h
-		Invoke EnableWindow, EAX, FALSE
 	.EndIf
 	MOV EAX,FALSE
 	RET

@@ -413,9 +413,15 @@ Local Buffer[256]	:BYTE
 		
 	.Else	;For Opened External Files itemData is the handle to the MDI child window
 		Invoke GetWindowLong,[EDI].itemData,0
-		LEA ESI,CHILDWINDOWDATA.szFileName[EAX]
+
+		; "Instant New Project" winds up here, and the LEA below incidentaly sets
+		; ESI to 0x10 because GetWindowLong() returns 0. Therefore, ensure
+		; that EAX is non-zero before overwriting ESI with nonsense. 
+		.If EAX != 0
+			LEA ESI,CHILDWINDOWDATA.szFileName[EAX]
+		.endif
 	.EndIf
-	
+
 	XOR EBX,EBX
 	Invoke lstrcpy,ADDR Buffer,ESI
 	LEA EAX,Buffer
