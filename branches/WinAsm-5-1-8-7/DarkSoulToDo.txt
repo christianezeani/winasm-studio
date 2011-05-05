@@ -1,0 +1,4 @@
+DarkSoul ToDo
+-------------
+-The output window should take care of warnings (maybe show them with yellow background) and should not treat them as errors. This will result in launching the build executable even if warnings are present but errors absent.
+-If I open a Project with an "invalid" resource (e. g. with a REGION data entry) WinAsm tells me that there is an error but then it "loses" the focus. So I have to switch myself back from my Windows-Explorer to WinAsm

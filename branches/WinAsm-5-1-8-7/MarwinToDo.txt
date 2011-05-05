@@ -1,0 +1,133 @@
+MarwinToDo:
+-----------
+-I would love it when you can change the caption of buttons, static controls, and maybe some other elements via double click at this element (cursor should go automatically to the right list item and activate it). 
+-What I like is the combobox in the "Find"-dialog. Maybe you can also add this nice feature to the "Replace"-dialog? 
+-Choosing "Send To Back" or "Bring To Front" affects only one item even if you have selected more. 
+-Is it possible to implement a function for creating the right makeit.bat file for the current project and place it in the project directory?
+-Furthermore I want to ask you whether you intend to add a feature for sorting the items in the Blocks-tab (Explorer->Blocks). E.g.: sorting after type (macro, proc, struct), name or the name of the file where this block is placed. 
+
+-why can't you select in the menu editor for example DEL as a shortkey? It is used to reset the shortcut, or? I would suggest to add a button for it so you don't have to add the DEL shortcut manually in the .RC file when you want to use it. 
+-I remember another thing: when adding a new menu (by clicking on the button) the id is everytime 1, regardless whether there is already a menu with this resource id. Could this be fixed (always choose the lowest id that is not already used by resources like menus, bitmaps, etc.)? 
+
+------------------------------------
+Following concerns the dialog editor: 
+
+2. Another suggestion for making the work faster (at least for me  ): maybe you can add these items which are listed in the listview under Resources->Dialogs (Name, ID, ...) as menu items to the popup menu (eg. Edit Name, Edit ID, Edit Left, ..., Edit Style, Edit ExStyle, ...). Slow and sure you recognize that I like shortcuts and other ways to keep the way of the mouse as short as possible  
+For me it is faster to right click on a button, and select a menu item for editing for example the ExStyle than moving the mouse to the right corner and press to times in the right side of the listview entry. Okay, these are only some ms but it's also more convenient.  
+
+
+could you add drag&drop support to the wishlist? 
+
+1. when you d&d one or more files in an empty workspace there could be two options: 
+a) normal editing like a texteditor (e.g. Notepad) 
+b) create a new project which contains the dropped files 
+2. when you d&d one or more files in a workspace that is NOT empty the files could be added to the project 
+
+1. + 2. would work with !.WAP only. 
+ 
+
+It would be nice too if the state (Visual Mode on/off) of the .RC file(s) is saved (in the .WAP file). 
+
+
+
+
+
+(?) Bug: tile the edit window; click in the first one; scroll some pages down; click in the first window; move the divider some pixels up or down; press a key (cursor, or PageUp, PageDown); now the first line is displayed in the first window, not the one where the cursor was before moving the divider. I think this should be fixed
+
+Maybe you could add jump labels (excluding @@), maybe in form of a tree view (to visualise the code-structure, like a short overview), db/BYTE/SBYTE, dw/WORD/SWORD, ... ? 
+
+Is it possible to add a choose-button (or a combobox with edit-field) to select already existing names of constants? An example: in my current project I use two menus containing not only different but also the same options (e.g. IDMI_DELETE). It would be timesaving to have a list (sorted by name of the constants) from which you can choose an already defined (via #define of course ) constant. 
+
+Furthermore I would like to suggest an undo/redo option in the resource-editor. Does it consume to much time, is there a technical "wall" or is it already in the (long long) todo-list? 
+
+At the moment you can choose between "Default/Lowercase/Uppercase" for ret and ENDP, why not for ENDM and similar? 
+
+I miss an option the pressing the TAB-key wont insert a tabulator but two (or more, as specified in Options->Editor->Tab Size) spaces. 
+
+Maybe you could extend the Add-Ins Manager-dialog in that way that a click on a list-view header sorts the list (not only the titles like it is now the case but also the "Load Status" and "Load On StartUp"). 
+
+Could you also extend the find/replace-dialog so that it is possible to search/replace only the respective words in the selected range (checkbox)? 
+
+Is it also possible that the last xx (maybe 20) words you typed in the find and replace field are saved, so that they are still available when you close and restart WinAsm Studio? 
+
+One last thing for this day: might it be possible to add collapsing/expanding for ... MACRO + ENDM, IFxxx + (maybe ELSEIF + too) ENDIF, .IF + .ENDIF, and so on (or an option so that the user can specify his desired block-elements which should have the option to be collapsed/expanded)? 
+
+The really last point: when selecting a resource file in Explorer-Project, WinAsm could switch to the Resources-tab automatically when the visual mode for this file is enabled for saving time when working at the dialog. 
+
+
+Well, as I am writing more than expected I can add another point: When creating dialogs and dialog items you already check for existing IDs and auto-select a not-used ID for new items/dialogs. But what about others like menus? 
+I would also prefer a hotkey for showing/hiding the Explorer and one for switching between Project, Blocks and Resources without having to move the mouse. 
+
+
+Regards, 
+Marwin 
+_________________
+CodingCrew.de 
+ 
+Back to top         
+ 
+ 
+Marwin
+Member
+
+
+Joined: 19 May 2003
+Posts: 58
+Location: Seelow, Germany
+ Posted: Sat Apr 03, 2004 11:27 am    Post subject:      
+
+--------------------------------------------------------------------------------
+ 
+Hi Antonis, 
+
+it's me again. I've found a bug: go to the end of the last line of an existing procedure (line with 'xxx ENDP'); press ENTER some times; go to the beginning of the first line of this procedure (xxx PROC xxx); press ENTER again. I hope you see what I mean (a horizontal line with a preceding minus-box is shown). 
+
+Regards, 
+Marwin 
+_________________
+CodingCrew.de 
+ 
+Back to top         
+ 
+ 
+Marwin
+Member
+
+
+Joined: 19 May 2003
+Posts: 58
+Location: Seelow, Germany
+ Posted: Sat Apr 03, 2004 5:42 pm    Post subject:      
+
+--------------------------------------------------------------------------------
+ 
+Hello Antonis, 
+
+when you split the edit window and type in the second one for example "invoke SendMessage, hWnd, ..." the drop-down-list and the blue window (containing informations about the arguments of the given procedure) are displayed in the upper edit window, not in the lower one. I hope this could be fixed. 
+
+I have another suggestion: maybe you could extend the complete function (drop-down-list) in this way, that certain arguments are appended automatically when you select an entry from the drop-down-list. 
+For example some messages accept as parameters only that wParam == NULL and lParam == NULL: 
+
+[quote=Platform SDK] 
+WM_GETTEXTLENGTH 
+wParam = 0; // not used; must be zero 
+lParam = 0; // not used; must be zero 
+[/quote] 
+
+What I mean is following: you type "invoke SendMesage, hWnd, WM_GET", then select WM_GETTEXTLENGTH from the dorp-down-list and then the current line is completed not to "invoke SendMessage, hWnd, WM_GETTEXTLENGTH, " but to "invoke SendMessage, hWnd, WM_GETTEXTLENGTH, NULL, NULL" + <ENTER> + auto-indent (if activated by the user). 
+
+This method would be possible with messages that either accept NULL in both arguments or only in wParam (so that the line has to be "invoke SendMessage, hWnd, LVM_GETITEM, NULL, " after the completion): 
+
+For example: 
+[quote=Platform SDK] 
+LVM_GETITEM 
+wParam = 0; 
+lParam = (LPARAM) (LV_ITEM FAR*) pitem; 
+[/quote] 
+
+I would also like it if you can "unsplit" the edit window by dragging the divider to the bottom of the second edit window and not only to the top of the first edit window. 
+
+
+
+-What I mean is that the cursor (after pressing cursor up, cursor down, page up or page down) is not in this line where it should be (not always in the first line, like I wrote first). 
+-An option for inserting popup-menus in the tools-menu would also be great. 

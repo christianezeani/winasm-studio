@@ -1,0 +1,118 @@
+V1.0.0.0
+--------
+ToDo:
+[01.OK.Ask to save before closing.]
+
+[02.Save project.]
+
+[03.OK.Increase-Decrease Indent.]
+
+[04.OK.Comment-Uncomment.]
+
+[05.OK.About.]
+
+[06.OK.Splash.]
+
+[07.OK In Project Tree:
+						A)OK.	-Categories to be dynamic.
+						B)OK.	-Add categories: 	-Definition files.
+													-Text Files.OK
+													-etc.
+						C)		-more item bitmaps.
+						D)		-Selecting an already selected item does not fire
+								 selection message...]
+
+[08.OK.Project Properties.]
+
+[09.OK.Remove File from project.]
+
+[10.NO.OWNERDRAW menus.]
+
+[11.NO.Options menu.]
+
+[12.OK.Add more tools-toolbars ?]
+
+[13.OK.Combo for procedures to be live!]
+
+[14.NO.No hilite for text files and others. Also NO Procedures]
+
+[15.NO.API Functions hilite and parameters.]
+
+[17.OK.Project Explorer should not be destroyed but made invisible.]
+
+[18.OK.Pressing Close of a child only hides the window.]
+
+[19.NO.Line Numbers with leading zeroes.]
+
+[20.NO.Use Lib instead of dll for CodeHi control?]
+
+[21.Project Explorer on the right side.]
+
+[22.OK.In View menu checked-unchecked.]
+
+[23.OK.Go To Line error if no child exist.]
+
+[24.OK.New Project:ProjectTree, Save etc]
+
+[25.OK.Open Project:ProjectTree, Save etc]
+
+[26.OK.Opening a project is rather slow.....]
+
+[27.OK.Tools and menus enabled-disabled.]
+
+[28.Do not show cancel when asking to save a child when emptying a project
+	-not when removing a single file from the project.]
+	
+[29.OK.Delete Image List when closing application.]
+
+[30.OK.Make menu and toolbar must be enabled at some stage.]
+
+[31.OK.Child Window Icons.]
+
+[32.Print.]
+
+[33.OK.Active-Deactive Project Explorer.]
+
+[34.OK.Small Caption for Project Explorer.]
+
+[35.OK.LockWindowUpdate for Indent,Outdent,Comment,Uncomment]
+
+[36.OK.LockWindowUpdate for Replace All.]
+
+[37.NO.hEditor, hCombo, hActiveChild to be made real-time ?]
+
+[38.OK.Project Properties menu item should be enabled at some stage.]
+
+[39.Make.]
+
+[40.OK.Dialog Bugs with WINNT,WIN2000,WINXP fixed.]
+
+[41.Saving or Inserting a file, neglect path if it is the same with project path.]
+
+[42.OK.WM_MAXIMIZE flickers.]
+
+[43.Compile switches change -> Ask to save Project before closing.
+	OK.A)Project Type
+	OK.B)Compile Command Line Arguments]
+	
+[44.When checking whether to save files, do it with treeview.]
+
+[45.Delete *.obj, *.res files After "Go All" and "Link".]
+
+[46.Indents and comments: retain selection.]
+
+[47.OK.Disable any Find, Go To... etc windows before showing about.]
+
+[48.NO.For RC Files, make a different keyword list. CANNOT BE DONE YET]
+
+[49.OK.Make Exe size smaller and Faster ????]
+
+[50.What to do for different project types?]
+
+[51.OutParent Height.]
+
+[52.File (&Project) Save & Open -->Take care of extensions.]
+
+----------->53.Resource numbers:
+						 a)Correct them
+						[b)Define them.]

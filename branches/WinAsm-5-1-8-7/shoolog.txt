@@ -1,0 +1,102 @@
+1.buffers for alternate keyword files and array of pointers added
+  in WinAsm.inc
+2.commented ASSEMBLER section loading in GetSettingsFromIni in Misc.asm
+3.inserted ASSEMBLER section loading into LoadWAP procedure in FileIO.asm
+4.separated default values and buffers for proc/struc/macr defs
+  in WinAsm.inc
+5.ForceDefault macro added to override empty values in wap
+;-----------------------------------------------------------------------
+project-depended proc/struc/macro works...
+;-----------------------------------------------------------------------
+6.LoadKeyWords macro and ResolvePath proc were made
+7.replaced:
+    Offset IncludePath with pIncludePath
+        same:
+    APIFunctions
+    APIStructures
+    APIConstants
+    KeyWordsFileName
+8.invoke getapi*/getkeywords moved into OpenWAP
+;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+9.replaced offset KeyWordsFileName to pKeyWordsFileName for saving
+  keywords also, so now keywords are loaded and saved in custom
+  keywords file, if present.
+;-----------------------------------------------------------------------
+project-depended highlite works...
+;-----------------------------------------------------------------------
+remarks:
+1.ResolvePath proc converts filename from EBX* to EAX* buffer depending
+on if the first character is ":" or "%" or other. if ":" - it replaced
+with "\" and path to winasm studio home inserted (currently results to
+"\" duplication, but it does not affect correct file opening) - you may
+use it to keep original Files&Paths to cancel these "no colors" crying,
+but for me it is complex to study saving/storing values for options.
+(in mine saving/storing engine setup box does not touch real values 
+in memory while editing ini - it uses temp buffer, i do not know how to
+do it correct and good for general winasm studio options)
+
+2.have not try everything yet, but should be no highlite for non-project
+asm when project is not loaded yet, instead, it should be highlited as
+set for last project loaded.
+
+3.when alternate keyfile is set in project - it will be edited instead 
+default in studio options box - do not know yet is it good or bad, and
+how it has to be best.
+
+4.moving loading key files in OpenWAP slows it, but make Studio runs
+faster, so, when project is opened with winasm studio - no difference,
+when another project is loaded - of course, slower, but who opens 
+project after project too fast in one instance of studio? me - not :D
+;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+5.blocking with "*" not working - results full lost of highlite, but
+  usage of "nul" helps.
+6.found, that if any colouring group is empty - full lost of highlite -
+  solved with this way:
+    ;Instuctions
+    C2COLOR=0x00FF0000
+    C2(Asm&Inc)=^
+  (i do not need so much highlite for 8080 cpu, at least a while)
+;-----------------------------------------------------------------------
+7.ResolvePath fixed - i found that szAppFilePath always has "\" at the
+  end, so, fixed "\" duplication.
+8.Also, removed some "shoorick" comments :) :) - anytime you wish to
+  find these changes - search for p* (like pKeyWordsFileName) - it is
+  on the place of offset * (like offset KeyWordsFileName)
+;-----------------------------------------------------------------------
+9.Added code to load keywords if only file opened: 
+  in AddOpenExistingFile procedure, in GetKeyWords procedure and in data
+  area - via flag.
+  If project have not been ever loaded - default keywords and other are
+  loading while just file opened.
+;+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+10.FillProceduresList: "||  BYTE PTR [ESI]=="," " added, as proc name in
+  fasm may be separate from parameters with comma.
+11.InsertProcParameters - BYTE PTR [EAX]=="\" added, so multyline
+  proc declaration may have lines ended with "\"
+  + same for FillProceduresList
+12.InsertProcParameters: call to fasm_proc_parser -> now i see procedure
+  parameters in dropdown list...
+13.GetSecondWordOfLine: 	CMP AL,"," / JE @F - now proc name added
+  without comma (if present: proc name,param1,param2 etc.)
+14.modified fasm_proc_parser was made -> fasm_params_only, used in   
+  FillProceduresList - now we see parameters for fasm-style procedures
+15.new flag added: FasmProcStyle - and loaded in OpenWAP (has to be
+  supported via FASM add-in now) 
+16.fasm_params_only proc replaced with fasm_params_only public label
+  inside fasm_proc_parser proc - no code duplication.
+;-----------------------------------------------------------------------
+17.Modified ProjectPropertiesDlgProc_EndDialog to set colouring when
+  an empty project is created with embedded manager
+;-----------------------------------------------------------------------
+18.In GoToLineDialogProc .Else been replaced with .ElseIf AX == 1 to
+  prevent closing box when checkbox is clicking.
+;-----------------------------------------------------------------------
+19.In OptionsDlgProc_InitDialog changed order of inserting "uppercase" 
+  and "lowercase" options into hRetCombo to make correct options. Also
+  this combo must not have CBS_SORT style! (ID 105)  
+
+  
+  
+  
+
+
