@@ -922,25 +922,6 @@ Local Buffer[12]:BYTE
 		LEA ECX,Buffer
 		Invoke BinToDec,EAX,ECX
 		Invoke WritePrivateProfileString, Offset szEDITOR, Offset szLineNrFontSize, ADDR Buffer, ADDR IniFileName
-		
-		; Save Font style
-		MOV EAX, lfntlnr.lfWeight
-		AND EAX,03FFh
-		MOVZX ECX,lfntlnr.lfItalic
-		AND ECX,1
-		SHL ECX,10
-		OR   EAX,ECX
-		MOVZX ECX,lfntlnr.lfStrikeOut
-		AND ECX,1
-		SHL ECX,11
-		OR   EAX,ECX
-		MOVZX ECX,lfntlnr.lfUnderline
-		AND ECX,1
-		SHL ECX,12
-		OR  EAX,ECX
-		Invoke wsprintf, ADDR Buffer, Offset szColorTemplate, EAX	
-		Invoke WritePrivateProfileString, Offset szEDITOR, Offset szLineNrFontStyle, ADDR Buffer, ADDR IniFileName
-				
 	.EndIf
 
 	RET
@@ -976,6 +957,8 @@ Local Buffer[12]:BYTE
 		MOV EAX,cf.rgbColors
 		MOV col.txtcol,EAX
 		
+		
+		
 		;Save Font Name in Ini File	
 		Invoke WritePrivateProfileString, Offset szEDITOR, Offset szEditorFontName, ADDR lfnt.lfFaceName, ADDR IniFileName
 		;Set Editor Text Color in Ini file
@@ -988,24 +971,6 @@ Local Buffer[12]:BYTE
 		LEA ECX,Buffer
 		Invoke BinToDec,EAX,ECX
 		Invoke WritePrivateProfileString, Offset szEDITOR, Offset szEditorFontSize, ADDR Buffer, ADDR IniFileName
-		
-		; Save Font style
-		MOV EAX, lfnt.lfWeight
-		AND EAX,03FFh
-		MOVZX ECX,lfnt.lfItalic
-		AND ECX,1
-		SHL ECX,10
-		OR   EAX,ECX
-		MOVZX ECX,lfnt.lfStrikeOut
-		AND ECX,1
-		SHL ECX,11
-		OR   EAX,ECX
-		MOVZX ECX,lfnt.lfUnderline
-		AND ECX,1
-		SHL ECX,12
-		OR  EAX,ECX
-		Invoke wsprintf, ADDR Buffer, Offset szColorTemplate, EAX	
-		Invoke WritePrivateProfileString, Offset szEDITOR, Offset szEditorFontStyle, ADDR Buffer, ADDR IniFileName
 		
 		;Save Charset
 		XOR EAX,EAX
@@ -4860,22 +4825,7 @@ Local Buffer[MAX_PATH+1]	:DWORD
     Invoke CreateOwnerDrawnMenus
 	Invoke GetSettingsFromIni
 	
-	; Get Line Number font style
-	Invoke GetPrivateProfileInt, Offset szEDITOR, Offset szLineNrFontStyle, 400, Offset IniFileName
-	MOV ECX,EAX
-	SHR ECX,10
-	AND EAX,03FFh
-	MOV lfntlnr.lfWeight,EAX
-	MOV EAX,ECX
-	SHR ECX,1
-	AND EAX,1
-	MOV lfntlnr.lfItalic,AL
-	MOV EAX,ECX
-	SHR ECX,1
-	AND EAX,1
-	MOV lfntlnr.lfStrikeOut,AL
-	AND ECX,1
-	MOV lfntlnr.lfUnderline,CL	
+	
 
    	;Create Line Number Font
 	Invoke GetPrivateProfileString, Offset szEDITOR, Offset szLineNrFontName,Offset szCourierNew,ADDR FontName ,32,Offset IniFileName
@@ -4883,6 +4833,7 @@ Local Buffer[MAX_PATH+1]	:DWORD
 	Invoke GetPrivateProfileInt, Offset szEDITOR, Offset szLineNrFontSize, 12, Offset IniFileName
 	NEG EAX
 	MOV lfntlnr.lfHeight,EAX
+	MOV lfntlnr.lfWeight,400
 
 	Invoke CreateFontIndirect,Offset lfntlnr
 	MOV hLnrFont,EAX
@@ -4891,24 +4842,8 @@ Local Buffer[MAX_PATH+1]	:DWORD
 		Invoke CalculateLineNrWidth
 		MOV	LineNrWidth,EAX
 	.EndIf
-		
-	; Get Editor font style
-	Invoke GetPrivateProfileInt, Offset szEDITOR, Offset szEditorFontStyle, 400, Offset IniFileName
-	MOV ECX,EAX
-	SHR ECX,10
-	AND EAX,03FFh
-	MOV lfnt.lfWeight,EAX
-	MOV EAX,ECX
-	SHR ECX,1
-	AND EAX,1
-	MOV lfnt.lfItalic,AL
-	PUSH EAX
-	MOV EAX,ECX
-	SHR ECX,1
-	AND EAX,1
-	MOV lfnt.lfStrikeOut,AL
-	AND ECX,1
-	MOV lfnt.lfUnderline,CL	
+	
+	
 	
 	;Create Italics Font
 	Invoke GetPrivateProfileString, Offset szEDITOR, Offset szEditorFontName,Offset szCourierNew, ADDR FontName , 32, Offset IniFileName
@@ -4916,24 +4851,25 @@ Local Buffer[MAX_PATH+1]	:DWORD
 	Invoke GetPrivateProfileInt, Offset szEDITOR, Offset szEditorFontSize, 12, Offset IniFileName
 	NEG EAX
 	MOV lfnt.lfHeight,EAX;-13
+	MOV lfnt.lfWeight,400
 	MOV lfnt.lfItalic,TRUE
 	;Invoke GetPrivateProfileInt, Offset szEDITOR, Offset szEditorFontCharset, 161, Offset IniFileName
 	;MOV lfnt.lfCharSet,AL
 	Invoke CreateFontIndirect,Offset lfnt
 	MOV hIFont,EAX
 	
-	; Restore Italic setting for Editor font
-	POP EAX
-	MOV lfnt.lfItalic,AL
-	
 	;Create font
 	Invoke GetPrivateProfileInt, Offset szEDITOR, Offset szEditorFontSize, 12, Offset IniFileName
 	NEG EAX
 	MOV lfnt.lfHeight,EAX
+	MOV lfnt.lfItalic,FALSE
+	MOV lfnt.lfWeight,400
 	Invoke GetPrivateProfileInt, Offset szEDITOR, Offset szEditorFontCharset, 161, Offset IniFileName
 	MOV lfnt.lfCharSet,AL
 	Invoke CreateFontIndirect,Offset lfnt
 	MOV hFont,EAX
+
+
 	
 	Invoke GetPrivateProfileString, Offset szFILESANDPATHS, Offset szKeyFile, ADDR szNULL, Offset KeyWordsFileName, MAX_PATH, Offset IniFileName
 	Invoke AddToolsSubMenus
@@ -5048,7 +4984,7 @@ Local Buffer[MAX_PATH+1]	:DWORD
 	MOV rbi.clrBack, EAX
 	
 	MOV rbi.lx, 388			;Band length
-	MOV rbi.cxMinChild, 375	;Second band can slide over almost all of this band
+	MOV rbi.cxMinChild, 5	;Second band can slide over almost all of this band
 	MOV rbi.cyMinChild, 22
 
 	M2M rbi.hwndChild, hMainTB
@@ -5059,8 +4995,6 @@ Local Buffer[MAX_PATH+1]	:DWORD
 	;Add another band
 	;MOV rbi.fStyle, RBBS_CHILDEDGE or RBBS_BREAK
 	MOV rbi.lx, 213;5
-  MOV rbi.cyMinChild, 22
-  MOV rbi.cxMinChild, 200
 	M2M rbi.hwndChild, hEditTB
 	;All other members of REBARBANDINFO structure will remain unchanged
 	Invoke SendMessage, WinAsmHandles.hRebar, RB_INSERTBAND, 1, ADDR rbi
@@ -5068,8 +5002,6 @@ Local Buffer[MAX_PATH+1]	:DWORD
 	;Add another band
 	;MOV rbi.fStyle, RBBS_CHILDEDGE
 	MOV rbi.lx, 140
-	MOV rbi.cyMinChild, 22
-  MOV rbi.cxMinChild, 120
 	M2M rbi.hwndChild, hMakeTB
 	;All other members of REBARBANDINFO structure will remain unchanged
 	Invoke SendMessage, WinAsmHandles.hRebar, RB_INSERTBAND, 2, ADDR rbi
@@ -7205,7 +7137,6 @@ Local tvi			:TVITEM
 	;VERY VERY VERY IMPORTANT-->The Add-Ins will stop recieving any messages and thus no crashes!!!!
 	MOV pAddInsFrameProcedures,0
 	MOV pAddInsProjectExplorerProcedures,0
-
 	MOV pAddInsOutWindowProcedures,0
 	MOV pAddInsChildWindowProcedures,0
 	;-----------------------------------------------------------------------------------------------------------------------

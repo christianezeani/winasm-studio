@@ -2117,10 +2117,8 @@ szEDITOR						DB "EDITOR",0
 szEditorFontName				DB "EditorFontName",0
 szEditorFontSize				DB "EditorFontSize",0
 szEditorFontCharset				DB "EditorFontCharset",0
-szEditorFontStyle				DB "EditorFontStyle",0
 szLineNrFontName				DB "LineNrFontName",0
 szLineNrFontSize				DB "LineNrFontSize",0
-szLineNrFontStyle				DB "LineNrFontStyle",0
 
 szBackColor						DB "BackColor",0
 szTextColor						DB "TextColor",0
